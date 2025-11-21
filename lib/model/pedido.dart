@@ -1,9 +1,9 @@
 class Pedido {
   final int id;
   final int idMesa;
-  final List<int> idProducto;
-  final int totalProductos;
-  final double totalPrecio;
+  List<int> idProducto;
+  int totalProductos;
+  double totalPrecio;
 
   Pedido({
     required this.id,
