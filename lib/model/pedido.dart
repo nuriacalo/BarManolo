@@ -1,15 +1,17 @@
+import 'package:t4_1/model/LineaProducto.dart';
+
 class Pedido {
   final int id;
   final int idMesa;
-  List<int> idProducto;
-  int totalProductos;
-  double totalPrecio;
+  List<LineaPedido> lineasPedido; 
 
   Pedido({
     required this.id,
     required this.idMesa,
-    required this.idProducto,
-    required this.totalProductos,
-    required this.totalPrecio,
+    required this.lineasPedido,
   });
+
+  int get totalProductos => lineasPedido.fold(0, (sum, item) => sum + item.cantidad);
+
+  double get totalPrecio => lineasPedido.fold(0, (sum, item) => sum + (item.producto.precio * item.cantidad));
 }
