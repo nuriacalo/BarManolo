@@ -35,54 +35,30 @@ class PedidoDetailScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final lineaActual = pedidoActual.lineasPedido[index];
                         final productoActual = lineaActual.producto;
-
                         return ListTile(
-                          leading: Text(
-                            '${(productoActual.precio * lineaActual.cantidad).toStringAsFixed(2)} €',
+                          leading: SizedBox(
+                            width: 56,
+                            child: Image.network(
+                                productoActual.imagenUrl ?? 'https://via.placeholder.com/150',
+                                fit: BoxFit.cover),
                           ),
                           title: Text(
                             productoActual.nombre ?? 'Producto sin nombre',
                           ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.remove_circle_outline),
-                                onPressed: () {
-                                  context
-                                      .read<PedidoViewModel>()
-                                      .disminuirCantidad(
-                                        pedidoActual.id,
-                                        productoActual.id,
-                                      );
-                                },
-                              ),
-                              Text(
-                                lineaActual.cantidad.toString(),
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.add_circle_outline),
-                                onPressed: () {
-                                  context
-                                      .read<PedidoViewModel>()
-                                      .aumentarCantidad(
-                                        pedidoActual.id,
-                                        productoActual.id,
-                                      );
-                                },
-                              ),
-                            ],
+                          subtitle: Text(
+                            'Cantidad: ${lineaActual.cantidad}',
                           ),
+                          trailing: Text(
+                            '${(productoActual.precio * lineaActual.cantidad).toStringAsFixed(2)} €',
+                          )
                         );
                       },
                     ),
             ),
-
-            SizedBox(height: 20),
-            // Muestra el total del pedido al final
-            Align(
-              alignment: Alignment.centerRight,
+            SizedBox(height: 10),
+            Container(
+              padding: EdgeInsets.only(bottom: 30),
+              alignment: Alignment.topCenter,
               child: Text(
                 'Total: ${pedidoActual?.totalPrecio.toStringAsFixed(2) ?? "0.00"} €',
                 style: Theme.of(context).textTheme.headlineMedium,
