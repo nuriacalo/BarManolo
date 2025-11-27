@@ -76,6 +76,4 @@ Permite introducir un número de mesa y añadir productos. Muestra un resumen pr
 ### Pantalla de Detalle (`PedidoDetailScreen`)
 Ofrece una vista detallada de un pedido seleccionado, listando todos los productos, sus cantidades y el coste total final.
 
----
-_Este README fue generado para documentar el proyecto de gestión de pedidos "Bar Manolo"._
 
