@@ -9,86 +9,65 @@ class PedidoDetailScreen extends StatelessWidget {
   const PedidoDetailScreen({super.key, required this.pedido});
   @override
   Widget build(BuildContext context) {
+    final pedidoViewModel = context.watch<PedidoViewModel>();
+    final Pedido? pedidoActual = pedidoViewModel.pedidos
+        .cast<Pedido?>()
+        .firstWhere(
+          (p) => p?.id == pedido.id,
+          orElse: () => null,
+        );
+
     return Scaffold(
       appBar: AppBar(title: Text('Pedido de la Mesa ${pedido.idMesa}')),
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    'Resumen del Pedido:',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    itemCount: pedido.lineasPedido.length,
-                    itemBuilder: (context, index) {
-                      final lineaActual = pedido.lineasPedido[index];
-                      final productoActual = lineaActual.producto;
-                      return Card(
-                        elevation: 2,
-                        margin: EdgeInsets.symmetric(vertical: 6),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: ListTile(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Resumen del Pedido:',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            SizedBox(height: 10),
+            Expanded(
+              child: pedidoActual == null
+                  ? Text('Pedido no encontrado.')
+                  : ListView.builder(
+                      itemCount: pedidoActual.lineasPedido.length,
+                      itemBuilder: (context, index) {
+                        final lineaActual = pedidoActual.lineasPedido[index];
+                        final productoActual = lineaActual.producto;
+                        return ListTile(
                           leading: SizedBox(
                             width: 56,
-                            height: 56, 
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                productoActual.imagenUrl ?? '...',
-                                fit: BoxFit.cover, 
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Icon(
-                                    Icons.broken_image,
-                                    color: Colors.grey,
-                                  );
-                                },
-                              ),
-                            ),
+                            child: Image.network(
+                                productoActual.imagenUrl ?? 'https://via.placeholder.com/150',
+                                fit: BoxFit.cover),
                           ),
                           title: Text(
                             productoActual.nombre ?? 'Producto sin nombre',
-                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text(
                             'Cantidad: ${lineaActual.cantidad}',
                           ),
                           trailing: Text(
                             '${(productoActual.precio * lineaActual.cantidad).toStringAsFixed(2)} €',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+                          )
+                        );
+                      },
+                    ),
             ),
-          ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
-            decoration: BoxDecoration(color: Colors.grey.shade200),
-            child: Text(
-              'Total: ${pedido.totalPrecio.toStringAsFixed(2)} €',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+            SizedBox(height: 10),
+            Container(
+              padding: EdgeInsets.only(bottom: 30),
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Total: ${pedidoActual?.totalPrecio.toStringAsFixed(2) ?? "0.00"} €',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:t4_1/model/LineaProducto.dart';
+import 'package:t4_1/viewmodel/PedidoViewModel.dart';
 import 'package:t4_1/view/seleccionarProductoScreen.dart';
 import 'package:t4_1/model/pedido.dart';
 
@@ -43,7 +45,7 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                 final numMesa = _mesaController.text;
                 if (numMesa.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text(
                         'Por favor, ingrese un número de mesa válido.',
                       ),
@@ -51,12 +53,24 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                   );
                   return;
                 }
+
+                final pedidoVM = context.read<PedidoViewModel>();
+                final idMesaInt = int.tryParse(numMesa) ?? 0;
+
+                Pedido? pedidoExistente;
+                try {
+                  pedidoExistente = pedidoVM.pedidos.firstWhere((p) => p.idMesa == idMesaInt);
+                } catch (e) {
+                  pedidoExistente = null;
+                }
+
                 final productosSeleccionados =
                     await Navigator.push<List<LineaPedido>>(
                       context,
                       MaterialPageRoute(
                         builder: (context) => SeleccionarProductoScreen(
-                          idMesa: int.tryParse(numMesa) ?? 0,
+                          idMesa: idMesaInt,
+                          lineasExistentes: pedidoExistente?.lineasPedido ?? [],
                         ),
                       ),
                     );
@@ -87,7 +101,6 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                 },
               ),
             ),
-            // O total calcúlase aquí, xusto antes de mostrarse.
             Builder(
               builder: (context) {
                 final totalProvisional = _lineasPedido.fold<double>(
@@ -103,33 +116,41 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            OverflowBar(
+              alignment: MainAxisAlignment.end,
+              spacing: 8.0,
               children: [
-                ElevatedButton(
-                  onPressed: () => Navigator.pop(context), // Cancelar
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                  child: const Text('Cancelar'),
+                TextButton.icon(
+                  icon: const Icon(Icons.cancel_outlined),
+                  label: const Text('Cancelar'),
+                  onPressed: () => Navigator.pop(context),
                 ),
-                ElevatedButton(
+                OutlinedButton.icon(
+                  icon: const Icon(Icons.visibility_outlined),
+                  label: const Text('Resumen'),
                   onPressed:
                       (_lineasPedido.isEmpty || _mesaController.text.isEmpty)
-                      ? null
-                      : () {
-                          final pedido = Pedido(
-                            id: 0,
-                            idMesa: int.parse(_mesaController.text),
-                            lineasPedido: _lineasPedido,
-                          );
-                          Navigator.pushNamed(
-                            context,
-                            '/resumen', // Usamos a nova ruta nomeada.
-                            arguments: pedido,
-                          );
-                        },
-                  child: const Text('Ver Resumen'),
+                          ? null
+                          : () {
+                              final pedido = Pedido(
+                                id: 0,
+                                idMesa: int.parse(_mesaController.text),
+                                lineasPedido: _lineasPedido,
+                              );
+                              Navigator.pushNamed(
+                                context,
+                                '/resumen',
+                                arguments: pedido,
+                              );
+                            },
                 ),
-                ElevatedButton(
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.check_circle_outline),
+                  label: const Text('Guardar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                  ),
                   onPressed: () {
                     final numMesa = _mesaController.text;
                     if (numMesa.isEmpty) {
@@ -148,7 +169,6 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                       );
                       return;
                     }
-
                     final pedidoCompleto = Pedido(
                       id: 0,
                       idMesa: int.parse(numMesa),
@@ -158,7 +178,6 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                       Navigator.pop(context, pedidoCompleto);
                     }
                   },
-                  child: const Text('Guardar Pedido'),
                 ),
               ],
             ),

@@ -12,7 +12,10 @@ import 'package:t4_1/viewmodel/SeleccionarProductoViewModel.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => PedidoViewModel())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => PedidoViewModel()),
+        ChangeNotifierProvider(create: (_) => SeleccionarProductoViewModel()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -25,10 +28,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bar Manolo',
-      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 207, 55, 96),
+        ),
+      ),
       initialRoute: '/',
       routes: {
         '/': (context) => MyHomePage(title: 'Bar Manolo'),
+        '/seleccionarProducto': (context) {
+          final idMesa = ModalRoute.of(context)!.settings.arguments as int;
+          return SeleccionarProductoScreen(idMesa: idMesa);
+        },
         '/crearPedidosScreen': (context) => const CrearPedidosScreen(),
         '/pedidoDetail': (context) {
           final pedido = ModalRoute.of(context)!.settings.arguments as Pedido;

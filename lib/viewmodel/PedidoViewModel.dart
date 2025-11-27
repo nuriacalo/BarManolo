@@ -16,13 +16,37 @@ class PedidoViewModel extends ChangeNotifier {
   List<Pedido> get pedidos => _pedidos.values.toList();
 
   void agregarPedido(Pedido pedido) {
-    final nuevoPedidoConId = Pedido(
-      id: _nextPedidoId,
-      idMesa: pedido.idMesa,
-      lineasPedido: pedido.lineasPedido,
-    );
-    _pedidos[_nextPedidoId] = nuevoPedidoConId;
-    _nextPedidoId++;
+    Pedido? pedidoExistente;
+    try {
+      pedidoExistente = _pedidos.values.firstWhere(
+        (p) => p.idMesa == pedido.idMesa,
+      );
+    } catch (e) {
+      pedidoExistente = null;
+    }
+
+    if (pedidoExistente != null) {
+      for (var nuevaLinea in pedido.lineasPedido) {
+        final index = pedidoExistente.lineasPedido.indexWhere(
+          (l) => l.producto.id == nuevaLinea.producto.id,
+        );
+
+        if (index != -1) {
+          pedidoExistente.lineasPedido[index].cantidad += nuevaLinea.cantidad;
+        } else {
+          pedidoExistente.lineasPedido.add(nuevaLinea);
+        }
+      }
+    } else {
+      final nuevoPedidoConId = Pedido(
+        id: _nextPedidoId,
+        idMesa: pedido.idMesa,
+        lineasPedido: pedido.lineasPedido,
+      );
+      _pedidos[_nextPedidoId] = nuevoPedidoConId;
+      _nextPedidoId++;
+    }
+
     notifyListeners();
   }
 

@@ -21,7 +21,6 @@ class SeleccionarProductoViewModel extends ChangeNotifier {
   }
 
   void agregarProducto(Producto producto) {
-    // Comprueba si el producto ya está en la lista
     final index = _lineasPedidoActuales.indexWhere(
       (linea) => linea.producto.id == producto.id,
     );
@@ -62,6 +61,13 @@ class SeleccionarProductoViewModel extends ChangeNotifier {
   void limpiar() {
     _idMesaSeleccionada = null;
     _lineasPedidoActuales = [];
+    notifyListeners();
+  }
+
+  void inicializarConLineas(List<LineaPedido> lineas) {
+    // Creamos una copia para no modificar la lista original del otro ViewModel
+    _lineasPedidoActuales =
+        lineas.map((l) => LineaPedido(producto: l.producto, cantidad: l.cantidad)).toList();
     notifyListeners();
   }
 }
