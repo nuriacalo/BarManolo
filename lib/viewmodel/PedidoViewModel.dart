@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:t4_1/model/pedido.dart';
-import 'package:t4_1/data/pedidos_data.dart'; 
+import 'package:t4_1/data/pedidos_data.dart';
 
 class PedidoViewModel extends ChangeNotifier {
   final Map<int, Pedido> _pedidos = {};
   int _nextPedidoId = 1;
-
 
   PedidoViewModel() {
     for (var pedido in listaDePedidos) {
@@ -31,11 +30,13 @@ class PedidoViewModel extends ChangeNotifier {
     _pedidos.remove(id);
     notifyListeners();
   }
-  
+
   void aumentarCantidad(int pedidoId, int productoId) {
     final pedido = _pedidos[pedidoId];
     if (pedido != null) {
-     final lineaIndex = pedido.lineasPedido.indexWhere((l) => l.producto.id == productoId);
+      final lineaIndex = pedido.lineasPedido.indexWhere(
+        (l) => l.producto.id == productoId,
+      );
       if (lineaIndex != -1) {
         pedido.lineasPedido[lineaIndex].cantidad++;
         notifyListeners();
@@ -46,8 +47,10 @@ class PedidoViewModel extends ChangeNotifier {
   void disminuirCantidad(int pedidoId, int productoId) {
     final pedido = _pedidos[pedidoId];
     if (pedido != null) {
-      final lineaIndex = pedido.lineasPedido.indexWhere((l) => l.producto.id == productoId);
-      if (lineaIndex != -1){
+      final lineaIndex = pedido.lineasPedido.indexWhere(
+        (l) => l.producto.id == productoId,
+      );
+      if (lineaIndex != -1) {
         if (pedido.lineasPedido[lineaIndex].cantidad > 1) {
           pedido.lineasPedido[lineaIndex].cantidad--;
         } else {

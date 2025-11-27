@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:t4_1/model/pedido.dart';
 import 'package:t4_1/viewmodel/PedidoViewModel.dart';
 import 'package:provider/provider.dart';
+import 'package:t4_1/view/crearPedidosScreen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -85,14 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Esta línea daría error hasta que creemos la pantalla y la ruta
-          // Navigator.pushNamed(context, '/seleccionarProducto');
-          print("Botón para añadir pedido pulsado!"); // Placeholder temporal
+        onPressed: () async {
+          final nuevoPedido = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CrearPedidosScreen()),
+          );
+
+          if (nuevoPedido != null && nuevoPedido is Pedido && mounted) {
+            context.read<PedidoViewModel>().agregarPedido(nuevoPedido);
+          }
         },
         tooltip: 'Añadir Pedido',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

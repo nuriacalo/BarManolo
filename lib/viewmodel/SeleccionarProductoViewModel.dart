@@ -1,4 +1,3 @@
-// En el nuevo archivo SeleccionarProductoViewModel.dart
 import 'package:flutter/foundation.dart';
 import 'package:t4_1/model/LineaProducto.dart';
 import 'package:t4_1/model/pedido.dart';
