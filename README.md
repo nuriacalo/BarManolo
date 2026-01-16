@@ -2,7 +2,7 @@
 
 ![Bar Manolo](/assets/manolo.png)
 
-"Bar Manolo" es una aplicación móvil desarrollada en Flutter que simula un sistema de punto de venta (TPV) simple para un bar o cafetería. Permite a los camareros crear, gestionar y visualizar los pedidos de las mesas de forma rápida y eficiente.
+"Bar Manolo" es una aplicación móvil desarrollada en Flutter para la gestión de un bar. Permite a los camareros crear, gestionar y visualizar los pedidos de las mesas de forma rápida y eficiente.
 
 ## ✨ Características
 
@@ -20,50 +20,6 @@
 *   **Dart**: Lenguaje de programación optimizado para clientes para crear aplicaciones rápidas en cualquier plataforma.
 *   **Provider**: Un wrapper alrededor de `InheritedWidget` para hacer la gestión de estado más fácil y eficiente.
 
-## 📂 Estructura del Proyecto
-
-El proyecto sigue una arquitectura simple y organizada para separar las responsabilidades:
-
-```
-lib/
-├── data/
-│   └── productos_data.dart   # Contiene la lista estática de productos disponibles.
-├── model/
-│   ├── LineaProducto.dart    # Modelo para una línea de pedido (producto + cantidad).
-│   ├── pedido.dart           # Modelo principal para un pedido.
-│   └── producto.dart         # Modelo para un producto individual.
-├── view/
-│   ├── crearPedidosScreen.dart # Pantalla para la creación de un nuevo pedido.
-│   ├── home.dart               # Pantalla principal que lista todos los pedidos.
-│   ├── pedidoDetailScreen.dart # Pantalla que muestra el detalle de un pedido.
-│   └── seleccionarProductoScreen.dart # Pantalla para seleccionar productos.
-└── viewmodel/
-    └── PedidoViewModel.dart    # Gestiona el estado y la lógica de negocio de los pedidos.
-```
-
-## 🚀 Cómo Empezar
-
-Para ejecutar este proyecto en tu máquina local, sigue estos pasos:
-
-1.  **Clona el repositorio**
-    ```sh
-    git clone https://URL_DEL_TU_REPOSITORIO.git
-    ```
-
-2.  **Navega al directorio del proyecto**
-    ```sh
-    cd t4_1
-    ```
-
-3.  **Instala las dependencias**
-    ```sh
-    flutter pub get
-    ```
-
-4.  **Ejecuta la aplicación**
-    ```sh
-    flutter run
-    ```
 
 ## 📱 Vistas de la Aplicación
 
