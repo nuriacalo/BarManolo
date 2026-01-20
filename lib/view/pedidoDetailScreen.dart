@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:t4_1/model/pedido.dart';
 import 'package:t4_1/viewmodel/PedidoViewModel.dart';
 
+/// Pantalla de detalle del pedido
 class PedidoDetailScreen extends StatelessWidget {
   final Pedido pedido;
 
@@ -29,6 +30,8 @@ class PedidoDetailScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             SizedBox(height: 10),
+
+            /// Lista de productos
             Expanded(
               child: pedidoActual == null
                   ? Text('Pedido no encontrado.')

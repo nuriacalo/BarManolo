@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:t4_1/model/pedido.dart';
 import 'package:t4_1/data/pedidos_data.dart';
 
+/// ViewModel para gestionar los pedidos
 class PedidoViewModel extends ChangeNotifier {
   final Map<int, Pedido> _pedidos = {};
   int _nextPedidoId = 1;
@@ -15,6 +16,7 @@ class PedidoViewModel extends ChangeNotifier {
 
   List<Pedido> get pedidos => _pedidos.values.toList();
 
+  /// Agrega un nuevo pedido o reemplaza las líneas de un pedido existente para la misma mesa
   void agregarPedido(Pedido pedido) {
     Pedido? pedidoExistente;
     try {
@@ -26,17 +28,8 @@ class PedidoViewModel extends ChangeNotifier {
     }
 
     if (pedidoExistente != null) {
-      for (var nuevaLinea in pedido.lineasPedido) {
-        final index = pedidoExistente.lineasPedido.indexWhere(
-          (l) => l.producto.id == nuevaLinea.producto.id,
-        );
-
-        if (index != -1) {
-          pedidoExistente.lineasPedido[index].cantidad += nuevaLinea.cantidad;
-        } else {
-          pedidoExistente.lineasPedido.add(nuevaLinea);
-        }
-      }
+      // Reemplazar las líneas en lugar de añadirlas
+      pedidoExistente.lineasPedido = pedido.lineasPedido;
     } else {
       final nuevoPedidoConId = Pedido(
         id: _nextPedidoId,
@@ -55,6 +48,7 @@ class PedidoViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Aumenta la cantidad de un producto en un pedido específico
   void aumentarCantidad(int pedidoId, int productoId) {
     final pedido = _pedidos[pedidoId];
     if (pedido != null) {
@@ -68,6 +62,7 @@ class PedidoViewModel extends ChangeNotifier {
     }
   }
 
+  /// Disminuye la cantidad de un producto en un pedido específico
   void disminuirCantidad(int pedidoId, int productoId) {
     final pedido = _pedidos[pedidoId];
     if (pedido != null) {

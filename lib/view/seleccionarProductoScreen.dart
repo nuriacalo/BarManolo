@@ -4,6 +4,7 @@ import 'package:t4_1/viewmodel/SeleccionarProductoViewModel.dart';
 import 'package:t4_1/model/LineaProducto.dart';
 import 'package:provider/provider.dart';
 
+/// Pantalla para seleccionar productos para un pedido
 class SeleccionarProductoScreen extends StatefulWidget {
   final int idMesa;
   final List<LineaPedido> lineasExistentes;
@@ -26,7 +27,9 @@ class _SeleccionarProductoScreenState extends State<SeleccionarProductoScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<SeleccionarProductoViewModel>().limpiar();
       if (widget.lineasExistentes.isNotEmpty) {
-        context.read<SeleccionarProductoViewModel>().inicializarConLineas(widget.lineasExistentes);
+        context.read<SeleccionarProductoViewModel>().inicializarConLineas(
+          widget.lineasExistentes,
+        );
       }
       context.read<SeleccionarProductoViewModel>().seleccionarMesa(
         widget.idMesa,
@@ -46,7 +49,7 @@ class _SeleccionarProductoScreenState extends State<SeleccionarProductoScreen> {
         children: [
           const SizedBox(height: 10),
           const Text("Selecciona productos", style: TextStyle(fontSize: 18)),
-
+          /// Lista de productos disponibles
           Expanded(
             child: ListView.builder(
               itemCount: listaDeProductos.length,

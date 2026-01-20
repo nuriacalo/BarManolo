@@ -1,5 +1,6 @@
 import 'package:t4_1/model/LineaProducto.dart';
 
+/// Modelo de un pedido realizado en una mesa del restaurante.
 class Pedido {
   final int id;
   final int idMesa;

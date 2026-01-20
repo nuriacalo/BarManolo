@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:t4_1/model/pedido.dart';
 
+/// Pantalla que muestra el resumen del pedido realizado.
 class ResumenPedidoScreen extends StatelessWidget {
   final Pedido pedido;
 
@@ -20,8 +21,10 @@ class ResumenPedidoScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
-            Text('Produtos:', style: Theme.of(context).textTheme.titleLarge),
+            Text('Productos:', style: Theme.of(context).textTheme.titleLarge),
             const Divider(),
+
+            /// Listado de productos en el pedido
             Expanded(
               child: ListView.builder(
                 itemCount: pedido.lineasPedido.length,
@@ -55,6 +58,7 @@ class ResumenPedidoScreen extends StatelessWidget {
           ],
         ),
       ),
+      /// Total final del pedido
       bottomNavigationBar: Container(
         color: Colors.grey[200],
         padding: const EdgeInsets.all(24.0),

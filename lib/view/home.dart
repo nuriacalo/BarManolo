@@ -4,6 +4,7 @@ import 'package:t4_1/viewmodel/PedidoViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:t4_1/view/crearPedidosScreen.dart';
 
+/// La pantalla principal de la aplicación que muestra la lista de pedidos.
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -25,11 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: <Widget>[
-          Image.asset(
-            'assets/manolo.png',
-            height: 150,
-            fit: BoxFit.contain,
-          ),
+          Image.asset('assets/manolo.png', height: 150, fit: BoxFit.contain),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Text(
@@ -37,6 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
+
+          /// Lista de pedidos con funcionalidad de deslizamiento para eliminar.
           Expanded(
             child: ListView.builder(
               itemCount: pedidoViewModel.pedidos.length,
@@ -47,7 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   direction: DismissDirection.endToStart,
                   background: Container(
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 4.0),
+                      horizontal: 16.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(12.0),
@@ -60,14 +61,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     pedidoViewModel.eliminarPedido(pedido.id);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content:
-                            Text('Pedido de Mesa ${pedido.idMesa} eliminado'),
+                        content: Text(
+                          'Pedido de Mesa ${pedido.idMesa} eliminado',
+                        ),
                       ),
                     );
                   },
+
+                  /// Tarjeta que muestra la información del pedido.
                   child: Card(
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 4.0),
+                      horizontal: 16.0,
+                      vertical: 4.0,
+                    ),
                     child: ListTile(
                       leading: const Icon(Icons.receipt_long),
                       title: Text('Pedido de la Mesa ${pedido.idMesa}'),
@@ -75,8 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       trailing: Text(
                         '${pedido.totalPrecio.toStringAsFixed(2)} €',
                       ),
-                      onTap: () => Navigator.pushNamed(context, '/pedidoDetail',
-                          arguments: pedido),
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        '/pedidoDetail',
+                        arguments: pedido,
+                      ),
                     ),
                   ),
                 );
@@ -85,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+
+      /// Botón flotante para agregar un nuevo pedido.
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final nuevoPedido = await Navigator.push(

@@ -2,6 +2,7 @@ import 'package:t4_1/data/productos_data.dart';
 import 'package:t4_1/model/LineaProducto.dart';
 import 'package:t4_1/model/pedido.dart';
 
+/// Datos simulados de pedidos
 final List<Pedido> listaDePedidos = [
   Pedido(
     id: 1,

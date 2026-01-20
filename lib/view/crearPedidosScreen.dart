@@ -5,6 +5,7 @@ import 'package:t4_1/viewmodel/PedidoViewModel.dart';
 import 'package:t4_1/view/seleccionarProductoScreen.dart';
 import 'package:t4_1/model/pedido.dart';
 
+/// Pantalla para crear un nuevo pedido
 class CrearPedidosScreen extends StatefulWidget {
   const CrearPedidosScreen({super.key});
 
@@ -64,6 +65,7 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                   pedidoExistente = null;
                 }
 
+                /// Navegar a la pantalla de selección de productos
                 final productosSeleccionados =
                     await Navigator.push<List<LineaPedido>>(
                       context,
@@ -101,6 +103,8 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                 },
               ),
             ),
+
+            /// Total provisional
             Builder(
               builder: (context) {
                 final totalProvisional = _lineasPedido.fold<double>(
@@ -116,6 +120,8 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
               },
             ),
             const SizedBox(height: 20),
+
+            /// Botones de acción
             OverflowBar(
               alignment: MainAxisAlignment.end,
               spacing: 8.0,

@@ -1,5 +1,6 @@
 import 'package:t4_1/model/producto.dart';
 
+/// Lista de productos disponibles en el sistema
 final List<Producto> listaDeProductos = [
   Producto(
     id: 1,
