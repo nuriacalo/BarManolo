@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:t4_1/model/LineaProducto.dart';
 import 'package:t4_1/viewmodel/PedidoViewModel.dart';
@@ -23,6 +24,24 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
     super.dispose();
   }
 
+  /// Función para validar el número de mesa
+  String? _validarNumeroMesa(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'El número de mesa es obligatorio';
+    }
+    final numero = int.tryParse(value);
+    if (numero == null) {
+      return 'Debe ser un número válido';
+    }
+    if (numero <= 0) {
+      return 'El número debe ser positivo';
+    }
+    if (numero > 100) {
+      return 'El número de mesa debe ser menor a 100';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +50,17 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
+            TextFormField(
               controller: _mesaController,
               decoration: InputDecoration(
                 labelText: 'Número de Mesa',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.table_restaurant),
+                helperText: 'Ingrese el número de mesa (1-100)',
               ),
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              validator: _validarNumeroMesa,
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
@@ -60,9 +83,24 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
 
                 Pedido? pedidoExistente;
                 try {
-                  pedidoExistente = pedidoVM.pedidos.firstWhere((p) => p.idMesa == idMesaInt);
+                  pedidoExistente = pedidoVM.pedidos.firstWhere(
+                    (p) => p.idMesa == idMesaInt,
+                  );
                 } catch (e) {
                   pedidoExistente = null;
+                }
+
+                /// SnackBar informativo si la mesa ya tiene pedido
+                if (pedidoExistente != null && mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'La Mesa $idMesaInt ya tiene un pedido. Se añadirán los productos.',
+                      ),
+                      backgroundColor: Colors.blue,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
                 }
 
                 /// Navegar a la pantalla de selección de productos
@@ -136,19 +174,19 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                   label: const Text('Resumen'),
                   onPressed:
                       (_lineasPedido.isEmpty || _mesaController.text.isEmpty)
-                          ? null
-                          : () {
-                              final pedido = Pedido(
-                                id: 0,
-                                idMesa: int.parse(_mesaController.text),
-                                lineasPedido: _lineasPedido,
-                              );
-                              Navigator.pushNamed(
-                                context,
-                                '/resumen',
-                                arguments: pedido,
-                              );
-                            },
+                      ? null
+                      : () {
+                          final pedido = Pedido(
+                            id: 0,
+                            idMesa: int.parse(_mesaController.text),
+                            lineasPedido: _lineasPedido,
+                          );
+                          Navigator.pushNamed(
+                            context,
+                            '/resumen',
+                            arguments: pedido,
+                          );
+                        },
                 ),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.check_circle_outline),

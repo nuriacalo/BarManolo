@@ -105,6 +105,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
           if (nuevoPedido != null && nuevoPedido is Pedido && mounted) {
             context.read<PedidoViewModel>().agregarPedido(nuevoPedido);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Pedido de Mesa ${nuevoPedido.idMesa} guardado exitósamente',
+                ),
+                backgroundColor: Colors.green,
+                duration: const Duration(seconds: 2),
+              ),
+            );
           }
         },
         tooltip: 'Añadir Pedido',

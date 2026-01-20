@@ -49,6 +49,7 @@ class _SeleccionarProductoScreenState extends State<SeleccionarProductoScreen> {
         children: [
           const SizedBox(height: 10),
           const Text("Selecciona productos", style: TextStyle(fontSize: 18)),
+
           /// Lista de productos disponibles
           Expanded(
             child: ListView.builder(
@@ -76,17 +77,23 @@ class _SeleccionarProductoScreenState extends State<SeleccionarProductoScreen> {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      IconButton(
-                        icon: const Icon(Icons.remove),
-                        onPressed: () => vm.eliminarProducto(producto),
+                      Tooltip(
+                        message: 'Disminuir cantidad',
+                        child: IconButton(
+                          icon: const Icon(Icons.remove),
+                          onPressed: () => vm.eliminarProducto(producto),
+                        ),
                       ),
                       Text(
                         "${linea.cantidad}",
                         style: const TextStyle(fontSize: 18),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: () => vm.agregarProducto(producto),
+                      Tooltip(
+                        message: 'Aumentar cantidad',
+                        child: IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () => vm.agregarProducto(producto),
+                        ),
                       ),
                     ],
                   ),
@@ -100,21 +107,27 @@ class _SeleccionarProductoScreenState extends State<SeleccionarProductoScreen> {
               alignment: MainAxisAlignment.spaceAround,
               spacing: 8.0,
               children: [
-                TextButton.icon(
-                  icon: const Icon(Icons.cancel_outlined),
-                  label: const Text('Cancelar'),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.check_circle_outline),
-                  label: const Text('Confirmar'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                Tooltip(
+                  message: 'Cancelar selección de productos',
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.cancel_outlined),
+                    label: const Text('Cancelar'),
+                    onPressed: () => Navigator.pop(context),
                   ),
-                  onPressed: vm.lineasPedido.isEmpty
-                      ? null
-                      : () => Navigator.pop(context, vm.lineasPedido),
+                ),
+                Tooltip(
+                  message: 'Confirmar selección de productos',
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.check_circle_outline),
+                    label: const Text('Confirmar'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    onPressed: vm.lineasPedido.isEmpty
+                        ? null
+                        : () => Navigator.pop(context, vm.lineasPedido),
+                  ),
                 ),
               ],
             ),
