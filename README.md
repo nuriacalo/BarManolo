@@ -1,35 +1,48 @@
-# Bar Manolo - App de Gestión de Pedidos
+# 🍺 Bar Manolo - App de Gestión de Pedidos
 
-![Bar Manolo](/assets/manolo.png)
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
+![Provider](https://img.shields.io/badge/Provider-State%20Management-blueviolet?style=for-the-badge)
 
-"Bar Manolo" es una aplicación móvil desarrollada en Flutter para la gestión de un bar. Permite a los camareros crear, gestionar y visualizar los pedidos de las mesas de forma rápida y eficiente.
+<div align="center">
+  <img src="/assets/manolo.png" alt="Logo Bar Manolo" width="200"/>
+</div>
 
-## ✨ Características
+---
 
-*   **Creación de Pedidos**: Añade nuevos pedidos especificando el número de mesa.
-*   **Gestión de Productos**: Añade múltiples productos a un pedido desde una lista predefinida.
-*   **Listado de Pedidos**: Visualiza todos los pedidos activos en la pantalla principal, mostrando un resumen con el número de mesa, total de productos y precio total.
-*   **Detalle del Pedido**: Consulta el desglose completo de un pedido, incluyendo cada producto, su cantidad, precio unitario y una imagen representativa.
-*   **Eliminación de Pedidos**: Elimina pedidos deslizando el elemento en la lista principal.
-*   **Cálculo Automático**: El total del pedido se calcula automáticamente a medida que se añaden o modifican productos.
-*   **Gestión de Estado**: Utiliza el paquete `provider` para una gestión de estado centralizada y reactiva.
+> **"Bar Manolo"** es una aplicación móvil desarrollada en Flutter para la gestión de un bar. Permite a los camareros crear, gestionar y visualizar los pedidos de las mesas de forma rápida y eficiente.
+
+---
+
+## ✨ Características Principales
+
+| Funcionalidad | Descripción |
+| :--- | :--- |
+| **Creación de Pedidos** | Añade nuevos pedidos especificando el número de mesa. |
+| **Gestión de Productos** | Añade múltiples productos a un pedido desde una lista predefinida. |
+| **Listado de Pedidos** | Visualiza todos los pedidos activos con resumen de mesa y total. |
+| **Detalle del Pedido** | Desglose completo (producto, cantidad, precio, imagen). |
+| **Eliminación** | Elimina pedidos deslizando el elemento (Swipe-to-delete). |
+| **Cálculo Automático** | El total se actualiza en tiempo real al modificar productos. |
+| **Gestión de Estado** | Uso de `provider` para una arquitectura reactiva. |
 
 ## 🛠️ Tecnologías Utilizadas
 
-*   **Flutter**: Framework de UI para crear aplicaciones nativas compiladas para móvil, web y escritorio desde una única base de código.
-*   **Dart**: Lenguaje de programación optimizado para clientes para crear aplicaciones rápidas en cualquier plataforma.
-*   **Provider**: Un wrapper alrededor de `InheritedWidget` para hacer la gestión de estado más fácil y eficiente.
-
+* **[Flutter](https://flutter.dev):** Framework de UI para crear aplicaciones nativas compiladas.
+* **[Dart](https://dart.dev):** Lenguaje de programación optimizado para clientes.
+* **Provider:** Wrapper de `InheritedWidget` para la gestión de estado eficiente.
 
 ## 📱 Vistas de la Aplicación
 
-### Pantalla Principal (`MyHomePage`)
-Muestra una lista de todos los pedidos actuales. Desde aquí puedes navegar para crear un nuevo pedido o ver el detalle de uno existente. También puedes eliminar un pedido deslizándolo hacia la izquierda.
+### 1. Pantalla Principal (`MyHomePage`)
+Muestra una lista de todos los pedidos actuales.
+* Navegación a crear pedido o ver detalle.
+* Eliminación por deslizamiento.
 
-### Pantalla de Creación de Pedidos (`CrearPedidosScreen`)
-Permite introducir un número de mesa y añadir productos. Muestra un resumen provisional del coste total antes de guardar el pedido.
+### 2. Creación de Pedidos (`CrearPedidosScreen`)
+Formulario para introducir mesa y productos.
+* Muestra resumen provisional de coste.
 
-### Pantalla de Detalle (`PedidoDetailScreen`)
-Ofrece una vista detallada de un pedido seleccionado, listando todos los productos, sus cantidades y el coste total final.
-
+### 3. Pantalla de Detalle (`PedidoDetailScreen`)
+Vista detallada con lista de productos y coste final.
 
