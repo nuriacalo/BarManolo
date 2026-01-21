@@ -1,5 +1,5 @@
 
-/// Modelo de datos para un producto
+/// Modelo de datos para un producto del bar.
 class Producto {
   final int id;
   final String? nombre;

@@ -25,7 +25,7 @@
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">t4_1</a></li>
-    <li><a href="../viewmodel_PedidoViewModel/">viewmodel\PedidoViewModel.dart</a></li>
+    <li><a href="../viewmodel_PedidoViewModel/">viewmodel&#47;PedidoViewModel.dart</a></li>
     <li class="self-crumb">PedidoViewModel class</li>
   </ol>
   <div class="self-name">PedidoViewModel</div>
@@ -54,7 +54,8 @@
 
     
 <section class="desc markdown">
-  <p>ViewModel para gestionar los pedidos</p>
+  <p>ViewModel que gestiona el estado de los pedidos.
+Utiliza Provider para notificar cambios a la UI.</p>
 </section>
 
 
@@ -177,7 +178,7 @@
 
 </dt>
 <dd>
-  Agrega un nuevo pedido o reemplaza las líneas de un pedido existente para la misma mesa
+  Agrega un pedido nuevo o actualiza uno existente para la misma mesa.
   
 
 </dd>
@@ -190,7 +191,7 @@
 
 </dt>
 <dd>
-  Aumenta la cantidad de un producto en un pedido específico
+  
   
 
 </dd>
@@ -203,7 +204,7 @@
 
 </dt>
 <dd>
-  Disminuye la cantidad de un producto en un pedido específico
+  Disminuye la cantidad o elimina la línea si llega a 0.
   
 
 </dd>

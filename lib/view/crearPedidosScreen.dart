@@ -63,10 +63,12 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
               validator: _validarNumeroMesa,
             ),
             SizedBox(height: 16.0),
-            ElevatedButton(
-              child: Text('Añadir Producto'),
-              onPressed: () async {
-                final numMesa = _mesaController.text;
+            Tooltip(
+              message: 'Seleccionar productos para este pedido',
+              child: ElevatedButton(
+                child: Text('Añadir Producto'),
+                onPressed: () async {
+                  final numMesa = _mesaController.text;
                 if (numMesa.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -120,6 +122,7 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                   });
                 }
               },
+              ),
             ),
             const SizedBox(height: 20),
             Text(
@@ -164,18 +167,23 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
               alignment: MainAxisAlignment.end,
               spacing: 8.0,
               children: [
-                TextButton.icon(
-                  icon: const Icon(Icons.cancel_outlined),
-                  label: const Text('Cancelar'),
-                  onPressed: () => Navigator.pop(context),
+                Tooltip(
+                  message: 'Cancelar creación del pedido',
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.cancel_outlined),
+                    label: const Text('Cancelar'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
                 ),
-                OutlinedButton.icon(
-                  icon: const Icon(Icons.visibility_outlined),
-                  label: const Text('Resumen'),
-                  onPressed:
-                      (_lineasPedido.isEmpty || _mesaController.text.isEmpty)
-                      ? null
-                      : () {
+                Tooltip(
+                  message: 'Ver resumen del pedido antes de guardar',
+                  child: OutlinedButton.icon(
+                    icon: const Icon(Icons.visibility_outlined),
+                    label: const Text('Resumen'),
+                    onPressed:
+                        (_lineasPedido.isEmpty || _mesaController.text.isEmpty)
+                        ? null
+                        : () {
                           final pedido = Pedido(
                             id: 0,
                             idMesa: int.parse(_mesaController.text),
@@ -187,15 +195,18 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                             arguments: pedido,
                           );
                         },
-                ),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.check_circle_outline),
-                  label: const Text('Guardar'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   ),
-                  onPressed: () {
+                ),
+                Tooltip(
+                  message: 'Guardar el pedido',
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.check_circle_outline),
+                    label: const Text('Guardar'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    onPressed: () {
                     final numMesa = _mesaController.text;
                     if (numMesa.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -222,6 +233,7 @@ class _CrearPedidosScreenState extends State<CrearPedidosScreen> {
                       Navigator.pop(context, pedidoCompleto);
                     }
                   },
+                  ),
                 ),
               ],
             ),

@@ -25,7 +25,7 @@
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">t4_1</a></li>
-    <li><a href="../../viewmodel_SeleccionarProductoViewModel/">viewmodel\SeleccionarProductoViewModel.dart</a></li>
+    <li><a href="../../viewmodel_SeleccionarProductoViewModel/">viewmodel&#47;SeleccionarProductoViewModel.dart</a></li>
     <li><a href="../../viewmodel_SeleccionarProductoViewModel/SeleccionarProductoViewModel-class.html">SeleccionarProductoViewModel</a></li>
     <li class="self-crumb">agregarProducto method</li>
   </ol>
@@ -63,8 +63,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Agrega un producto al pedido actual.
-Si el producto ya está en el pedido, aumenta su cantidad.</p>
+  <p>Si el producto ya existe, aumenta su cantidad.</p>
 </section>
 
 
@@ -72,17 +71,17 @@ Si el producto ya está en el pedido, aumenta su cantidad.</p>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void agregarProducto(Producto producto) {
-    final index = _lineasPedidoActuales.indexWhere(
-      (linea) =&gt; linea.producto.id == producto.id,
-    );
+  final index = _lineasPedidoActuales.indexWhere(
+    (linea) =&gt; linea.producto.id == producto.id,
+  );
 
-    if (index != -1) {
-      _lineasPedidoActuales[index].cantidad++;
-    } else {
-      _lineasPedidoActuales.add(LineaPedido(producto: producto, cantidad: 1));
-    }
-    notifyListeners();
-  }</code></pre>
+  if (index != -1) {
+    _lineasPedidoActuales[index].cantidad++;
+  } else {
+    _lineasPedidoActuales.add(LineaPedido(producto: producto, cantidad: 1));
+  }
+  notifyListeners();
+}</code></pre>
 </section>
 
 

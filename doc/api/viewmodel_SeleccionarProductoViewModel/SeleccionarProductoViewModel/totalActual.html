@@ -25,7 +25,7 @@
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">t4_1</a></li>
-    <li><a href="../../viewmodel_SeleccionarProductoViewModel/">viewmodel\SeleccionarProductoViewModel.dart</a></li>
+    <li><a href="../../viewmodel_SeleccionarProductoViewModel/">viewmodel&#47;SeleccionarProductoViewModel.dart</a></li>
     <li><a href="../../viewmodel_SeleccionarProductoViewModel/SeleccionarProductoViewModel-class.html">SeleccionarProductoViewModel</a></li>
     <li class="self-crumb">totalActual property</li>
   </ol>
@@ -66,17 +66,14 @@
 
     </section>
     
-<section class="desc markdown">
-  <p>Calcula el total actual del pedido basado en las líneas de pedido.</p>
-</section>
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">double get totalActual =&gt; _lineasPedidoActuales.fold(
-    0,
-    (sum, item) =&gt; sum + (item.producto.precio * item.cantidad),
-  );</code></pre>
+  0,
+  (sum, item) =&gt; sum + (item.producto.precio * item.cantidad),
+);</code></pre>
 </section>
 
   </section>

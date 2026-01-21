@@ -1,5 +1,5 @@
 
-/// Modelo de datos para representar una mesa
+/// Modelo de datos para una mesa del bar.
 class Mesa {
   final int id;
   final int? capacidad;

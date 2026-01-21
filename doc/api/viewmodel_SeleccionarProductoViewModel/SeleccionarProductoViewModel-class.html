@@ -25,7 +25,7 @@
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">t4_1</a></li>
-    <li><a href="../viewmodel_SeleccionarProductoViewModel/">viewmodel\SeleccionarProductoViewModel.dart</a></li>
+    <li><a href="../viewmodel_SeleccionarProductoViewModel/">viewmodel&#47;SeleccionarProductoViewModel.dart</a></li>
     <li class="self-crumb">SeleccionarProductoViewModel class</li>
   </ol>
   <div class="self-name">SeleccionarProductoViewModel</div>
@@ -54,7 +54,7 @@
 
     
 <section class="desc markdown">
-  <p>ViewModel para gestionar la selección de productos y la mesa asociada.</p>
+  <p>ViewModel para gestionar la selección temporal de productos al crear un pedido.</p>
 </section>
 
 
@@ -166,7 +166,7 @@
 
 </dt>
 <dd>
-  Calcula el total actual del pedido basado en las líneas de pedido.
+  
   <div class="features"><span class="feature">no setter</span></div>
 
 </dd>
@@ -201,8 +201,7 @@
 
 </dt>
 <dd>
-  Agrega un producto al pedido actual.
-Si el producto ya está en el pedido, aumenta su cantidad.
+  Si el producto ya existe, aumenta su cantidad.
   
 
 </dd>
@@ -230,9 +229,7 @@ object is not in a usable state and should be discarded (calls to
 
 </dt>
 <dd>
-  Elimina un producto del pedido actual.
-Si la cantidad es mayor a 1, disminuye la cantidad en 1.
-De lo contrario, lo elimina del pedido.
+  Disminuye la cantidad o elimina el producto si llega a 0.
   
 
 </dd>
@@ -245,7 +242,7 @@ De lo contrario, lo elimina del pedido.
 
 </dt>
 <dd>
-  Finaliza el pedido actual y devuelve un objeto Pedido si es válido.
+  Crea el objeto Pedido si hay mesa y productos seleccionados.
   
 
 </dd>
@@ -258,7 +255,7 @@ De lo contrario, lo elimina del pedido.
 
 </dt>
 <dd>
-  
+  Inicializa con líneas existentes (útil al editar un pedido).
   
 
 </dd>
@@ -324,7 +321,7 @@ notified when the object changes.
 
 </dt>
 <dd>
-  Selecciona una mesa por su ID.
+  
   
 
 </dd>
